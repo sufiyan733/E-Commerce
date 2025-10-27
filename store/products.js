@@ -1,0 +1,52 @@
+
+
+"use client";
+
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+
+export const initial =[
+  { "id": "1", "title": "Premium Wireless Headphones", "price": 249.99, "originalPrice": 299.99, "discountPercent": 17, "category": "electronics", "rating": { "rate": 4.5, "count": 128 }, "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcT3c1FcISROHaz62G1wcMd50F6gp5lv7UgAsz-DESjO-wWgVXcpkNtTg-KA_z8uXTzwSZNXugOeQdBvVAu5IyCm_g2EZJji2IVs0ciJWuHlQfF32I3fRgwgZw", "inStock": true },
+  { "id": "2", "title": "Ultrabook 14\" Laptop", "price": 1099.0, "originalPrice": 1299.0, "discountPercent": 15, "category": "electronics", "rating": { "rate": 4.6, "count": 1021 }, "image": "/img2.jpg", "inStock": true },
+  { "id": "3", "title": "Smartphone Pro 6.7”", "price": 999.0, "originalPrice": 1099.0, "discountPercent": 9, "category": "electronics", "rating": { "rate": 4.7, "count": 2150 }, "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ6u2z5BxTwmfJdnesLnjNYPnUUaaCJyW9re8XbZ9_xvA616ImahFGQv9JnSgWjtUdF06hvcmGlyuKO_BMwB1HeRxyleq89OazdU8kTf-2a-1GkP3xjVFZVUw", "inStock": true },
+  { "id": "4", "title": "Smartwatch GPS + LTE", "price": 299.0, "originalPrice": 349.0, "discountPercent": 14, "category": "electronics", "rating": { "rate": 4.3, "count": 1330 }, "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRV66JiXYHg3Bn2wNTWBKbydlmej0hghYweG5Tnp92p6waXe9reHjWwkTZ_xlQC3T9q6lLd9UvFKpTaMXupqqSewtk5lErnOWsBcsVTLTMKYR_KdumldLAe", "inStock": true },
+  { "id": "5", "title": "Mirrorless Camera 24MP", "price": 799.0, "originalPrice": 949.0, "discountPercent": 16, "category": "electronics", "rating": { "rate": 4.6, "count": 620 }, "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRkSa_fRXP1a8ZA3dthXrInEJ-imKpJZCLZUYsRzJBga17A-FuX08O1BNcxYR4GFYwpySgdISLsyO7qSQkn48DgcHvwGg8P0RYrV_q9mDaJ", "inStock": true },
+  { "id": "6", "title": "Optical Gaming Mouse", "price": 49.99, "originalPrice": 69.99, "discountPercent": 29, "category": "electronics", "rating": { "rate": 4.3, "count": 730 }, "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ0OvpwokdoLPwyFed2XcwfjS36C3UZGC3FWsibKr4teOZeLRAIo9HC7NedHlpdr-TdE2dYpkH-2-95srUplTLD_fSP9sU5ABEyk_6XCvkB9fwssPN_yMtSPw", "inStock": true },
+  { "id": "7", "title": "Mechanical RGB Keyboard", "price": 99.99, "originalPrice": 129.99, "discountPercent": 23, "category": "electronics", "rating": { "rate": 4.4, "count": 560 }, "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS3_8uAw1r5nk-9gTg1jit_V4GlRI30BhW3bEqOYpsu3pX8CAlGT07Dy5RmNwrA0nlEJ7L13BUKIaitGMtzXO7qrz63RLmSgHKiX68UbQNvooXq33A8jJFptw", "inStock": true },
+  { "id": "8", "title": "27” 4K UHD Monitor", "price": 329.0, "originalPrice": 399.0, "discountPercent": 18, "category": "electronics", "rating": { "rate": 4.5, "count": 342 }, "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRnaZEjmvWk6xzpBrJWe_T5lEC-L40Qw5lFxEiOySZhaFg6QMmQjm5dJ3234kp-_ULFRvUxX3DEj3clHPcP83YKM1M42P8HyTYlklT4wMFNGBT9IG0y8xNZ7A", "inStock": true },
+  { "id": "9", "title": "Bluetooth Portable Speaker", "price": 89.99, "originalPrice": 119.99, "discountPercent": 25, "category": "electronics", "rating": { "rate": 4.4, "count": 2017 }, "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS3gH_q6EfE5x-KmTgslV7afpQ71qMCj0h7NbPdJwO-rXktN7dyhh-eSOqM8Whan_15a4w-gVOp6sTUe97LrqNdFZre-jt4xn-EGGpKxkWwmThR3ESKwwWH", "inStock": true },
+  { "id": "10", "title": "Studio Wireless Earbuds", "price": 129.99, "originalPrice": 159.99, "discountPercent": 19, "category": "electronics", "rating": { "rate": 4.2, "count": 412 }, "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR0tp_9hBTY-C7tSMPV3kebFRLju8JCuMnPl3VdT3tB_miYWWBV3orsr0LpB6K1M2V3iETHdqVhvjolVu9VVgtwU9DmDAJmOKV7N_PgNy5_CZHEiI6nvSL1", "inStock": true },
+  { "id": "11", "title": "Action Camera 5K", "price": 349.0, "originalPrice": 399.0, "discountPercent": 13, "category": "electronics", "rating": { "rate": 4.4, "count": 420 }, "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSEwI9VFQPEU_Z6htb-ul-XYvsvdoCfj22R2dc-m3QgJWXwOGTouasDjTiOpFi7TpiMM8dHcNdstC-DzdGMb2e4zVpj9kt9bcaKcrh6sdvJJ_phz40eNPjMpM8Rqxaj83-BsxwvlO8&usqp=CAc", "inStock": true },
+  { "id": "12", "title": "USB-C GaN Charger 65W", "price": 39.99, "originalPrice": 59.99, "discountPercent": 33, "category": "electronics", "rating": { "rate": 4.4, "count": 540 }, "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQf5lfXzMJUI8sDhA-Q5YB1j0redIrxXn-sAC7-0lo01d8e8jhlUGjLzLWpRVPfFr08vEVTfU_LWgITEtOqkT4l-DqDz6E9pAiVr2F8LTFpc19fKQfzZANhdnCxW48kvvTCddbVSjE5mg&usqp=CAc", "inStock": true },
+  { "id": "13", "title": "NVMe SSD 1TB Gen4", "price": 109.0, "originalPrice": 139.0, "discountPercent": 22, "category": "electronics", "rating": { "rate": 4.8, "count": 2750 }, "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQRZpsS-Kk_vzpjm35lmqmEVieUPOUflDsYNKKlYL0XiDBeBCE7507i60lN8z2jcvvBq-74SHShIz91cnmctc7QK-r55nVOiHB9uFHiFZi9FQrkTgLAPQf4Mg", "inStock": true },
+  { "id": "14", "title": "External HDD 2TB", "price": 69.0, "originalPrice": 89.0, "discountPercent": 22, "category": "electronics", "rating": { "rate": 4.4, "count": 1930 }, "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1180&q=80", "inStock": true },
+  { "id": "15", "title": "Noise-Cancelling USB Mic", "price": 119.0, "originalPrice": 149.0, "discountPercent": 20, "category": "electronics", "rating": { "rate": 4.5, "count": 308 }, "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSBlgjuy3wigJnwEgwuzrw4U8664ZuqgK3hRkTMCjrtuVZbtj3v-jQHogy3Mw42p11q7LsclnVhObCAE8astyz-1jizXa1ZNbDcumn3lZ89koXHSq7xwLBL", "inStock": true },
+  { "id": "16", "title": "1080p Autofocus Webcam", "price": 69.99, "originalPrice": 89.99, "discountPercent": 22, "category": "electronics", "rating": { "rate": 4.2, "count": 689 }, "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSbHkhUk3Z0nvR3DGdq67s9Vg1VCaGhHlki2QG3UWhqBfNbg0NgIbK0zj6mXTC_9bHQhXUbaZ4p_QatiYOsLenmQWVsSO7jPfY7937tVwM", "inStock": true },
+  { "id": "17", "title": "Smartphone Lite 6.1”", "price": 449.0, "originalPrice": 499.0, "discountPercent": 10, "category": "electronics", "rating": { "rate": 4.2, "count": 980 }, "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR6ikrmXs06__WqSczYhWyE_JvUky7AMWS1JmOph-NucgB_oO83PVsiRez3otetGm4qlOOSFg2PnlHjofhRIM9ROtkXveX5A4jjgNXb5z4_1a1qHSn9lhSzj10RrIJx82VqD3Wo7OUVWQ&usqp=CAc", "inStock": true },
+  { "id": "18", "title": "Tablet 11” Liquid Retina", "price": 599.0, "originalPrice": 699.0, "discountPercent": 14, "category": "electronics", "rating": { "rate": 4.5, "count": 870 }, "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSnglMVkuqG18Swv-jNpuDtPznd98JaV7ghp3Ntfp8HWhnIzSQW8JO6ExMk1TOQiaefYyN0ZgGZeRl-YPOO2sFwPdBsBcFGayr2lihMO8ruzhc2lxZsVntv", "inStock": true },
+  { "id": "19", "title": "Dual-Band Wi-Fi Router", "price": 89.0, "originalPrice": 119.0, "discountPercent": 25, "category": "electronics", "rating": { "rate": 4.3, "count": 540 }, "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQkYZ88DwS8775Hbgly4dzKFl1STs-ZET1X-rB7CgbQGSxmvVm075NzEOtitba2oxhS1tj4dO8NNnhbEsjI0DaibKcEQZcvRWEJ8ck9vzM0jK5NldWPItAa", "inStock": true },
+  { "id": "20", "title": "Smart Home Speaker", "price": 129.0, "originalPrice": 159.0, "discountPercent": 19, "category": "electronics", "rating": { "rate": 4.4, "count": 1120 }, "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTLQnAhvHQdI2kG85p197aRCBJL6SasABWk8Nrt2GuFJwETZsHBHqpNeF-A_LDlgG2j3YWEEn1l8cdKM6XmzkWl-kMORqzsx85hTlFYmybHm0bfHUW5sBTz", "inStock": true }
+];
+
+
+// export const useProduct=create(persist((set,get)=>({
+// products:[...initial],
+// addProducts:({id,title,price,originalPrice,discountPercentage,category,rating,image,inStock})=>
+// set({
+// products:[...get().products,{
+//  "id":id,
+//  "title":title,
+//  "price":price,
+//  "originalPrice":originalPrice,
+//  "discountPercent":discountPercentage,
+//  "category":category,
+//  "rating":rating,
+//  "image":image,
+//  "inStock":inStock
+// }]
+// }),
+// remProduct:(id)=>
+// set({
+// products:get().products.filter((prod)=>prod.id!==id)
+// }
+// )})));
