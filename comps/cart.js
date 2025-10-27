@@ -406,16 +406,14 @@ const CartItem = memo(function CartItem({ item, index, onUpdateQuantity, onRemov
     >
       <div className="p-4 sm:p-6">
         <div className={`flex ${isMobile ? 'flex-col' : 'gap-6'}`}>
-          {/* Image Container - Responsive */}
+          {/* Image Container - Responsive (object-contain on mobile and desktop) */}
           <div className={`relative group ${isMobile ? 'mb-4' : ''}`}>
-            <div className={`relative ${isMobile ? 'h-48 w-full' : 'h-32 w-28'} shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 p-1.5 shadow-inner`}>
+            <div className={`relative ${isMobile ? 'h-48 w-full' : 'h-32 w-28'} shrink-0 overflow-hidden rounded-xl bg-white p-1.5 shadow-inner flex items-center justify-center`}>
               {item?.image ? (
                 <img
                   src={item.image}
                   alt={item.title || "Product"}
-                  className={`h-full w-full object-cover rounded-lg transition-all duration-500 ${
-                    isHovered ? 'scale-105 brightness-105' : 'scale-100 brightness-100'
-                  }`}
+                  className={`max-h-full max-w-full object-contain rounded-lg transition-all duration-500 ${isHovered ? 'brightness-105' : 'brightness-100'}`}
                   loading="lazy"
                 />
               ) : (
@@ -554,15 +552,13 @@ const SavedItem = memo(function SavedItem({ item, index, onMoveToCart, onRemove,
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-          {/* Fixed Image Container with 5px Padding */}
-          <div className="relative h-14 w-14 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-lg bg-gradient-to-br from-slate-50 to-slate-100 p-1 shadow-inner">
+          {/* Fixed Image Container with padding and object-contain */}
+          <div className="relative h-14 w-14 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-lg bg-white p-1 shadow-inner flex items-center justify-center">
             {item?.image ? (
               <img
                 src={item.image}
                 alt={item.title || "Saved item"}
-                className={`h-full w-full object-cover rounded-md transition-all duration-300 ${
-                  isHovered ? 'scale-105 brightness-105' : 'scale-100 brightness-100'
-                }`}
+                className={`max-h-full max-w-full object-contain rounded-md transition-all duration-300 ${isHovered ? 'brightness-105' : 'brightness-100'}`}
                 loading="lazy"
               />
             ) : (

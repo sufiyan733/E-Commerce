@@ -74,10 +74,10 @@ export default function Header() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 lg:h-16">
-          {/* Brand - always dark theme style */}
+          {/* Brand - aligned left for mobile */}
           <a
             href="/"
-            className="ml-[50px] flex items-center gap-2.5 group relative"
+            className="flex items-center gap-2.5 group relative"
             onMouseEnter={() => setActiveHover("logo")}
             onMouseLeave={() => setActiveHover(null)}
           >
@@ -115,7 +115,7 @@ export default function Header() {
             {/* Cart */}
             <button
               aria-label="Shopping Cart"
-              className="relative inline-flex items-center gap-2 rounded-lg border transition-all duration-300 group overflow-hidden px-4 py-2 mr-15 bg-gradient-to-r from-amber-500 to-amber-400 text-slate-900 border-amber-400/60 hover:from-amber-400 hover:to-amber-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/25 active:scale-95 active:shadow-lg"
+              className="relative inline-flex items-center gap-2 rounded-lg border transition-all duration-300 group overflow-hidden px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-400 text-slate-900 border-amber-400/60 hover:from-amber-400 hover:to-amber-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/25 active:scale-95 active:shadow-lg"
               onMouseEnter={() => setActiveHover("cart")}
               onMouseLeave={() => setActiveHover(null)}
               onClick={() => router.push("/cart")}
@@ -172,7 +172,7 @@ export default function Header() {
                 </div>
                 <SignOutButton>
                   <button
-                    className="relative pt-1 rounded-lg font-semibold transition-all duration-300 px-4 py-2 bg-gradient-to-br from-white to-slate-100 text-slate-900 border border-white/70 hover:from-slate-100 hover:to-white hover:scale-105 hover:shadow-2xl hover:shadow-white/25 active:scale-95 active:shadow-lg group overflow-hidden"
+                    className="relative rounded-lg font-semibold transition-all duration-300 px-4 py-2 bg-gradient-to-br from-white to-slate-100 text-slate-900 border border-white/70 hover:from-slate-100 hover:to-white hover:scale-105 hover:shadow-2xl hover:shadow-white/25 active:scale-95 active:shadow-lg group overflow-hidden"
                   >
                     {/* Shine effect */}
                     <div className="absolute inset-0 -left-full group-hover:left-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-all duration-700" />
