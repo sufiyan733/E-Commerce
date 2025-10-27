@@ -394,7 +394,7 @@ export default function PremiumProductGrid({ products }) {
   };
 
   return (
-    <div className="relative mt-16 min-h-screen bg-slate-50 text-slate-900 px-5 py-6 overflow-hidden">
+    <div className="relative mt-16 mb-0 min-h-screen bg-slate-50 text-slate-900 px-5 py-5 overflow-hidden">
       <PremiumBackground />
 
       {/* Premium Search Bar */}
