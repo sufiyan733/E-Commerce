@@ -3,7 +3,7 @@ import ProductGrid from "./prodCard";
 
 export default async function Products() {
   try {
-      const base ="https://www.faizan.store";
+      const base ="https://faizan.store";
     const res = await fetch(`${base}/api/products`, { cache: "no-store" });
    
     
