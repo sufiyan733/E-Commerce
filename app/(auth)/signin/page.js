@@ -60,7 +60,7 @@ export default function SignInPage() {
       // Common SDK shape; adjust if your client differs
      const data= await authClient.signIn.social({ provider: "google", callbackURL: `/` });
       // Usually redirects; if not, do fallback
-      router.replace("/");
+      redirect("/");
     } catch (e) {
       console.log(e)
       setMsg({ type: "error", text: e.message });
