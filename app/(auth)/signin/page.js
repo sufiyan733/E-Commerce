@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { redirect} from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";\
+import { useRouter } from "next/navigation";
 
 
 // --- Sign-in Page (app/(auth)/sign-in/page.js or app/sign-in/page.js) ---
@@ -60,7 +61,7 @@ export default function SignInPage() {
       // Common SDK shape; adjust if your client differs
      const data= await authClient.signIn.social({ provider: "google", callbackURL: `/` });
       // Usually redirects; if not, do fallback
-      redirect("/");
+      router.replace("/");      
     } catch (e) {
       console.log(e)
       setMsg({ type: "error", text: e.message });
