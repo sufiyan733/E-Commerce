@@ -47,7 +47,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <main className="max-h-screen p-4 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <main className="h-screen p-4 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <div className="w-full max-w-md">
         <form onSubmit={handleSubmit} className="space-y-5 bg-white rounded-5xl h-135 rounded-4xl border border-slate-200 p-8 shadow-2xl">
           <div className="text-center">
@@ -103,9 +103,7 @@ export default function SignUpPage() {
             {loading ? "Creating account..." : "Sign Up"}
           </button>
 
-          {msg && (
-            <p className={"text-sm text-center " + (msg.type === "success" ? "text-emerald-600" : "text-rose-600")}>{msg.text}</p>
-          )}
+          
 
           {/* Divider */}
           <div className="relative">

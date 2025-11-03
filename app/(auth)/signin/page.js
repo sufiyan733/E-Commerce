@@ -70,7 +70,7 @@ export default function SignInPage() {
   }
 
   return (
-    <main className="max-h-screen p-4 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 ">
+    <main className="h-screen p-4 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 ">
       <div className="w-full max-w-md">
         <form onSubmit={onSubmit} className="space-y-5 bg-white rounded-4xl border border-slate-200 p-8 shadow-2xl">
           <div className="text-center">
