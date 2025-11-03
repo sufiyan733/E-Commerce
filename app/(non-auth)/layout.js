@@ -1,8 +1,7 @@
 // app/layout.jsx
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "../comps/header";
-import Footer from "../comps/footer"
+import Header from "@/comps/header";
 import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -15,10 +14,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider
-     signInUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL}
-      signUpUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}
-    >
+    
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           
@@ -27,6 +23,5 @@ export default function RootLayout({ children }) {
             
         </body>
       </html>
-    </ClerkProvider>
   );
 }

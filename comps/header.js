@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useCartUniqueCount } from "../store/useCartStore";
 
 import React, { useState, useEffect } from "react";
@@ -13,8 +13,11 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { useCartStore } from "../store/useCartStore";
+import { Signout } from "./signout";
+import { authClient } from "@/lib/auth-client";
 
 export default function Header() {
+  const { data: session, pending, error, refetch } = authClient.useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeHover, setActiveHover] = useState(null);
@@ -135,52 +138,85 @@ export default function Header() {
             </button>
 
             {/* Auth */}
-            <SignedOut>
-              <div className="flex items-center gap-3">
-                <SignInButton mode="modal">
-                  <button
-                    className="relative inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-300 px-4 py-2 bg-gradient-to-br from-white to-slate-100 text-slate-900 border border-white/70 hover:from-slate-100 hover:to-white hover:scale-105 hover:shadow-2xl hover:shadow-white/25 active:scale-95 active:shadow-lg group overflow-hidden"
-                  >
-                    {/* Shine effect */}
-                    <div className="absolute inset-0 -left-full group-hover:left-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-all duration-700" />
-                    <span className="text-sm relative z-10 group-hover:translate-y-0.5 transition-transform duration-300">Sign In</span>
-                  </button>
-                </SignInButton>
+           <div className="flex items-center gap-3">
+    <button 
+        onClick={() => redirect('/signin')}
+        className={session ? "hidden" : `
+            relative inline-flex items-center justify-center rounded-xl font-semibold 
+            transition-all duration-500 px-4 py-2 
+            bg-gradient-to-br from-amber-500 via-amber-400 to-yellow-500 
+            text-white border border-amber-300/50 
+            hover:from-amber-400 hover:via-amber-300 hover:to-yellow-400 
+            hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30 
+            active:scale-95 
+            group overflow-hidden
+            before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent 
+            before:translate-x-[-100%] before:group-hover:translate-x-[100%] before:transition-transform before:duration-1000
+            after:absolute after:inset-0 after:bg-gradient-to-r after:from-amber-200/20 after:to-yellow-200/20 
+            after:opacity-0 after:group-hover:opacity-100 after:transition-opacity after:duration-300
+        `}
+    >
+        {/* Pulsing glow effect */}
+        <div className="absolute inset-0 rounded-xl bg-amber-400/20 group-hover:bg-amber-300/30 transition-all duration-500 group-hover:scale-110 blur-md opacity-0 group-hover:opacity-100" />
+        
+        <span className="relative z-10 flex items-center gap-2 text-sm font-bold tracking-wide">
+            <svg 
+                className="w-4 h-4 transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+            >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+            Sign In
+        </span>
+    </button>
 
-                <SignUpButton mode="modal">
-                  <button
-                    className="relative inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-300 px-4 py-2 bg-gradient-to-br from-amber-500 to-amber-400 text-white border border-amber-400/70 hover:from-amber-400 hover:to-amber-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/25 active:scale-95 active:shadow-lg group overflow-hidden"
-                  >
-                    {/* Shine effect */}
-                    <div className="absolute inset-0 -left-full group-hover:left-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-700" />
-                    <span className="text-sm relative z-10 group-hover:translate-y-0.5 transition-transform duration-300">Sign Up</span>
-                  </button>
-                </SignUpButton>
-              </div>
-            </SignedOut>
-
-            <SignedIn>
+    <button 
+        onClick={() => redirect('/signup')}
+        className={session ? "hidden" : `
+            relative inline-flex items-center justify-center rounded-xl font-semibold 
+            transition-all duration-500 px-4 py-2 
+            bg-gradient-to-br from-amber-600 via-amber-500 to-yellow-600 
+            text-white border border-amber-400/50 
+            hover:from-amber-500 hover:via-amber-400 hover:to-yellow-500 
+            hover:scale-105 hover:shadow-2xl hover:shadow-amber-600/30 
+            active:scale-95 
+            group overflow-hidden
+            before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent 
+            before:translate-x-[-100%] before:group-hover:translate-x-[100%] before:transition-transform before:duration-1000
+            after:absolute after:inset-0 after:bg-gradient-to-r after:from-amber-200/20 after:to-yellow-200/20 
+            after:opacity-0 after:group-hover:opacity-100 after:transition-opacity after:duration-300
+        `}
+    >
+        {/* Pulsing glow effect */}
+        <div className="absolute inset-0 rounded-xl bg-amber-500/20 group-hover:bg-amber-400/30 transition-all duration-500 group-hover:scale-110 blur-md opacity-0 group-hover:opacity-100" />
+        
+        <span className="relative z-10 flex items-center gap-2 text-sm font-bold tracking-wide">
+            <svg 
+                className="w-4 h-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-90" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+            >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+            Sign Up
+        </span>
+    </button>
+</div>
+         
+           
               <div className="flex items-center gap-3">
                 <div className="relative group">
-                  <UserButton
-                    appearance={{
-                      elements: {
-                        userButtonAvatarBox: "w-9 h-9 ring-2 ring-amber-400/60 rounded-full transition-all duration-300 group-hover:ring-amber-400/80 group-hover:scale-105 group-hover:shadow-lg",
-                      },
-                    }}
-                  />
+                  
+                  
                 </div>
-                <SignOutButton>
-                  <button
-                    className="relative rounded-lg font-semibold transition-all duration-300 px-4 py-2 bg-gradient-to-br from-white to-slate-100 text-slate-900 border border-white/70 hover:from-slate-100 hover:to-white hover:scale-105 hover:shadow-2xl hover:shadow-white/25 active:scale-95 active:shadow-lg group overflow-hidden"
-                  >
-                    {/* Shine effect */}
-                    <div className="absolute inset-0 -left-full group-hover:left-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-all duration-700" />
-                    <span className="text-sm relative z-10 group-hover:translate-y-0.5 transition-transform duration-300">Sign Out</span>
-                  </button>
-                </SignOutButton>
+                
+                 <Signout/>
+             
               </div>
-            </SignedIn>
+            
           </div>
 
           {/* Mobile toggle - with premium effects */}
@@ -209,31 +245,30 @@ export default function Header() {
         }}
       >
         <div className="px-4 py-4 space-y-4">
-          <SignedOut>
+          
             <div className="grid grid-cols-2 gap-3">
-              <SignInButton mode="modal">
-                <button className="py-3 rounded-lg bg-gradient-to-br from-white to-slate-100 text-slate-900 font-semibold border border-white/70 transition-all duration-300 hover:from-slate-100 hover:to-white hover:scale-105 hover:shadow-xl active:scale-95 group overflow-hidden relative">
+              
+                <button onClick={()=>redirect('/signin')}
+                 className="py-3 rounded-lg bg-gradient-to-br from-white to-slate-100 text-slate-900 font-semibold border border-white/70 transition-all duration-300 hover:from-slate-100 hover:to-white hover:scale-105 hover:shadow-xl active:scale-95 group overflow-hidden relative">
                   <div className="absolute inset-0 -left-full group-hover:left-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-all duration-700" />
                   <span className="text-sm relative z-10">Sign In</span>
                 </button>
-              </SignInButton>
-              <SignUpButton mode="modal">
-                <button className="py-3 rounded-lg bg-gradient-to-br from-amber-500 to-amber-400 text-white font-semibold border border-amber-400/70 transition-all duration-300 hover:from-amber-400 hover:to-amber-300 hover:scale-105 hover:shadow-xl active:scale-95 group overflow-hidden relative">
+              
+                <button onClick={()=>redirect('/signup')} className="py-3 rounded-lg bg-gradient-to-br from-amber-500 to-amber-400 text-white font-semibold border border-amber-400/70 transition-all duration-300 hover:from-amber-400 hover:to-amber-300 hover:scale-105 hover:shadow-xl active:scale-95 group overflow-hidden relative">
                   <div className="absolute inset-0 -left-full group-hover:left-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-700" />
                   <span className="text-sm relative z-10">Sign Up</span>
                 </button>
-              </SignUpButton>
+             
             </div>
-          </SignedOut>
-
-          <SignedIn>
+         
+        
             <div className="flex items-center justify-between rounded-lg border border-slate-600/40 bg-slate-800/70 px-4 py-3 backdrop-blur-sm transition-all duration-300 hover:bg-slate-700/70 hover:border-slate-500/40">
               <div className="flex items-center gap-3">
-                <UserButton />
+               
                 <span className="text-sm font-semibold text-slate-100">Account</span>
               </div>
             </div>
-          </SignedIn>
+         
 
           <div className="grid grid-cols-1 gap-3">
             <button

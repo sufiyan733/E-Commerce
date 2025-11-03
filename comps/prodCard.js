@@ -3,6 +3,9 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useCartProdQnt, useCartActions } from "@/store/useCartStore";
 
+// Add Lenis import
+import Lenis from 'lenis';
+
 /* constants */
 const PLACEHOLDER =
   "data:image/svg+xml;utf8," +
@@ -339,6 +342,32 @@ export default function PremiumProductGrid({ products }) {
 
   const prodQnt = useCartProdQnt();
   const { addToCart, incQnt, decQnt } = useCartActions();
+
+  // Lenis Smooth Scrolling Setup
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     setFilteredProducts(products);
