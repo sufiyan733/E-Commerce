@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { redirect} from "next/navigation";
-import { authClient } from "@/lib/auth-client";\
 import { useRouter } from "next/navigation";
-
+import { authClient } from "@/lib/auth-client";
 
 // --- Sign-in Page (app/(auth)/sign-in/page.js or app/sign-in/page.js) ---
 export default function SignInPage() {
-
+  const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "", remember: false });
   const [showPwd, setShowPwd] = useState(false);
   const [msg, setMsg] = useState(null);
