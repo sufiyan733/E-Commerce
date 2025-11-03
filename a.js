@@ -3,8 +3,8 @@ import Product from "./models/product.js"; // adjust path if needed
 
 async function fixProductIds() {
   try {
-    const U = "mongodb+srv://mdf998865_db_user:t5ClSWZZEcrml1go@cluster0.bznt0ez.mongodb.net/excalibur?appName=Cluster0"
-    await mongoose.connect(U);
+   
+    await mongoose.connect(process.env.DATABASE_URL);
 
     // Get all products
     const products = await Product.find();
